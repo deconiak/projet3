@@ -7,6 +7,7 @@ from pywaffle import Waffle
 import matplotlib.pyplot as plt
 from io import BytesIO
 from PIL import Image
+import xlsxwriter
 
 
 
