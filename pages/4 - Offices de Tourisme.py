@@ -8,6 +8,7 @@ import matplotlib.pyplot as plt
 from io import BytesIO
 from PIL import Image
 import xlsxwriter
+from pyxlsb import open_workbook as open_xlsb
 
 
 
