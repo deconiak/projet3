@@ -10,7 +10,7 @@ import squarify
 #Images
 logo = Image.open('logo_adn.png')
 image_icon = Image.open('logo_w.jpg')
-cartes = Image.open('choro_2_finale.jpg')
+cartes = Image.open('choro_2_finale.JPG')
 
 #Page config
 st.set_page_config(layout = 'wide',page_title='Focus Label Qualité Tourisme - Projet WCS',page_icon=image_icon)
