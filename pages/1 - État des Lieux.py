@@ -180,7 +180,7 @@ def choropleth_map_diverging(df1, df2, serie_1, serie_2, cmap, title, ax1_title,
     cbar2 = plt.cm.ScalarMappable(norm=norm2, cmap=cmap)
 
     # Initialize the figure
-    fig, ax1, ax2 = plt.subplots(figsize=(20, 10))
+    fig, ax = plt.subplots(figsize=(20, 10))
 
     # Map
     ax1 = fig.add_subplot(121)
