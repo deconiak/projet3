@@ -212,6 +212,7 @@ def choropleth_map_diverging(df1, df2, serie_1, serie_2, cmap, title, ax1_title,
 
     ax1.axis('off')
     ax2.axis('off')
+    plt.axis('off')
 
     st.pyplot(fig) 
     
