@@ -7,6 +7,9 @@ from wordcloud import WordCloud
 from datetime import date
 from PIL import Image
 import geopandas as gpd
+from matplotlib.colors import TwoSlopeNorm
+import numpy as np
+
 
 image = Image.open('logo_adn.png')
 image_icon = Image.open('logo_w.jpg')
@@ -154,7 +157,64 @@ def graph_date_maj(dataframe, col_date, range_start, range_stop, title):
     st.plotly_chart(fig, use_container_width=True)
 
 
+######################################################################################################################################################
+#############################################################TEST CARTES#############################################################################
+######################################################################################################################################################
+ def choropleth_map_diverging(df1, df2, serie_1, serie_2, cmap, title, ax1_title, ax2_title, ax1_label, ax2_label):
 
+    # colormap
+    cmap = cmap
+
+    # normalize color for serie 1
+    vmin, vmax, vcenter = df1[serie_1].min(), df1[serie_1].max(), 0
+    norm1 = TwoSlopeNorm(vmin=vmin, vcenter=vcenter, vmax=vmax)
+
+    # create normalized colorbar for dpt
+    cbar1 = plt.cm.ScalarMappable(norm=norm1, cmap=cmap)
+
+    # normalize color for serie 2
+    vmin, vmax, vcenter = df2[serie_2].min(), df2[serie_2].max(), 0
+    norm2 = TwoSlopeNorm(vmin=vmin, vcenter=vcenter, vmax=vmax)
+
+    # create normalized colorbar for dpt
+    cbar2 = plt.cm.ScalarMappable(norm=norm2, cmap=cmap)
+
+    # Initialize the figure
+    fig = plt.subplots(figsize=(20, 10))
+
+    # Map
+    ax1 = fig.add_subplot(121)
+    df1.plot(column=serie_1, 
+                    cmap=cmap, 
+                    norm=norm1, 
+                    legend=False,
+                    edgecolor='black',
+                    linewidth=.1,
+                    ax=ax1)
+    
+    ax2 = fig.add_subplot(122)
+    df2.plot(column=serie_2, 
+                    cmap=cmap, 
+                    norm=norm2, 
+                    legend=False,
+                    edgecolor='black',
+                    linewidth=.1,
+                    ax=ax2)
+
+    # add colorbar
+    fig.colorbar(cbar1, ax=ax1, fraction=0.04, shrink=0.80, aspect=20, label=ax1_label)
+    fig.colorbar(cbar2, ax=ax2, fraction=0.04, shrink=0.80, aspect=20, label=ax2_label)
+
+    fig.suptitle(title, fontsize=18)
+
+    ax1.set_title(ax1_title, fontsize=16)
+    ax2.set_title(ax2_title, fontsize=16)
+
+    ax1.axis('off')
+    ax2.axis('off')
+
+    st.pyplot(fig) 
+    
 ######################################################################################################################################################
 #############################################################MISE EN PAGE#############################################################################
 ######################################################################################################################################################
@@ -242,20 +302,7 @@ st.write("""On ne retrouve que 58 départements différents du côté DATAtouris
 
 ###############################################################CARTES#################################################################################
     
-# Image
-
-carte_choro_1 = Image.open('choro_1_finale.JPG')
-
-st.image(carte_choro_1)
-
-st.caption("""Nombre de POI = nombre POI DATAtourisme - nombre POI Data.economie.gouv.fr. En vert: les régions et départements pour lesquels on retrouve plus de POI chez DATAtourisme par rapport à Data.economie.gouv.fr. 
-En marron: les régions et départements pour lesquels on retrouve moins de POI chez DATAtourisme par rapport à Data.economie.gouv.fr. 
-""")
-
-st.write("""On met déjà en avant des régions ayant enregistré peu de POI marque "Qualité Tourisme” sur la base DATAtourisme: Auvergne-Rhône-Alpes et Provence-Alpes-Côte d’Azur. 
-À l'inverse, le Grand-Est et les Pays de la Loire enregistrent davantage de POI. 
-""")
-###########DATAFRAME#####################################
+# Prep dataframe # 
 
 def groupby_departement(dataframe, column, col_to_count):
     df = dataframe.groupby(by=column)[col_to_count].count().to_frame().sort_values(col_to_count, ascending=False).reset_index()
@@ -263,7 +310,7 @@ def groupby_departement(dataframe, column, col_to_count):
 
 # compte nombre de poi par departement datatourisme
 dpt_count_DT = groupby_departement(df_datatourisme, "department", "qualite_tourisme")
-dpt_count_DT.rename(columns={"qualite_tourisme":"nb POI datatourisme"}, inplace=True)
+dpt_count_DT.rename(columns={"qualite_tourisme":"nb POI DATAtourisme"}, inplace=True)
 
 # compte nombre de poi par département datagouv
 dpt_count_DG = groupby_departement(df_datagouv, "DEPARTEMENT", "NOM ETABLISSEMENT")
@@ -281,17 +328,53 @@ poi_count_total["difference"] = poi_count_total["nb POI datatourisme"] - poi_cou
 # suppression colonnes inutiles
 col_to_drop = ["department_x", "department_y", "code_region"]
 poi_count_total.drop(columns=col_to_drop, inplace=True)
-poi_count_total.rename(columns={"nom_departement" : "departement", "difference": "différence"}, inplace=True)
-poi_count_total.set_index("code_departement", inplace=True)
+
+# tableau des régions 
+poi_count_reg = pd.pivot_table(poi_count_total, index=["code_region", "nom_region"], values=["nb_poi_datatourisme", "nb_poi_datagouv", "difference"], aggfunc=np.sum, margins=False).reset_index()
+
+# fusionner toutes les infos nécessaires à la viz dans un geodataframe
+
+department_MQ = gdf_dpt.merge(poi_count_total[["code_departement", "difference"]], left_on=["code"], right_on=["code_departement"])
+region_MQ = gdf_reg.merge(poi_count_reg[["code_region", "difference"]], left_on=["code"], right_on=["code_region"])
+
+### SHOW MAP #########
+choropleth_map_diverging(region_MQ, department_MQ, "difference", "difference", "BrBG", 
+                         "Nombre de points Marque Qualité Tourisme :\ndifférence entre DATAtourisme et Datagouv", 
+                         "par région", "par département", "nbr POI", "nbr POI")
+
+
+############## Image si carte marche pas ################
+
+#carte_choro_1 = Image.open(r'C:\Users\camil\Documents\WildCodeSchool\project_03\choro_1_finale.JPG')
+
+# st.image(carte_choro_1)
+
+#### CAPTION ################################
+st.caption("""Nombre de POI = nombre POI DATAtourisme - nombre POI Datagouv. En vert: les régions et départements pour lesquels on retrouve plus de POI chez DATAtourisme par rapport à Datagouv. 
+En marron: les régions et départements pour lesquels on retrouve moins de POI chez DATAtourisme par rapport à Datagouv. 
+""")
+
+st.write("""On met déjà en avant des régions ayant enregistré peu de POI marque "Qualité Tourisme" sur la base DATAtourisme: Auvergne-Rhône-Alpes et Provence-Alpes-Côte d'Azur. 
+À l'inverse, le Grand-Est et les Pays de la Loire enregistrent plus de POI. 
+""")
+
+
+####################################################
+#  dataframe to show
+# #################################################### 
+
+df_to_show = poi_count_total.copy()
+df_to_show.rename(columns={"nom_departement" : "departement", "difference": "différence"}, inplace=True)
+df_to_show.set_index("code_departement", inplace=True)
 
 with st.expander("Vous pouvez cliquer ici afin d'accéder aux détails des régions et département ⬇️ "):
 
     #Liste du multi-select
-    select = poi_count_total["nom_region"].unique()
+    select = df_to_show["nom_region"].unique()
 
     #Choix et génération du DF filtré selon la selec.
     selected = st.selectbox("Selectionnez une région", select)
-    st.dataframe(poi_count_total[["departement", "nb POI datatourisme", "nb POI datagouv", "différence"]][poi_count_total["nom_region"] == selected].style.set_precision(0))
+    st.dataframe(df_to_show[["departement", "nb POI DATAtourisme", "nb POI datagouv", "différence"]][df_to_show["nom_region"] == selected].style.set_precision(0))
 
 ###############################################################CONCLUSION PARTIE#######################################################################
  
