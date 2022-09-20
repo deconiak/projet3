@@ -8,6 +8,7 @@ import matplotlib.pyplot as plt
 import squarify
 from matplotlib.colors import Normalize
 import geopandas as gpd
+import numpy as np
 
 
 #Images
