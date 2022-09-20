@@ -194,11 +194,11 @@ st.subheader("Au niveau des catégories")
 col1, col2 = st.columns(2, gap="medium")
 with col1 : 
     my_wordcloud(df_datatourisme, ["category"])
-    st.caption("Datatourisme")
+    st.caption("DATAtourisme")
 
 with col2 : 
     my_wordcloud(df_datagouv, ["CATEGORIE / FILIERE", "ACTIVITE"], True)
-    st.caption("Datagouv")
+    st.caption("Data.economie.gouv.fr")
 
 
 
