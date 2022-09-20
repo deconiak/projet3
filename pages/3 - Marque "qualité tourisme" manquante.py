@@ -95,7 +95,7 @@ st.sidebar.image(logo)
 #Titre
 st.title("Focus sur les organismes dont les marques 'Qualité Tourisme' sont manquantes.")
 
-st.write("Afin d'introduire cette partie, voici deux cartes présentant à la fois par région & département le nombre de points d'intêret ne disposant pas de la marque 'Qualité Tourisme' bien qu'ayant été matché sur la base de données de Data.economie.gouv.fr. Comme l'on peut le voir, certaines régions ont un taux de labels manquants extrêmement élevé, notamment la région Rhône-Alpes (et plus particulièrement Savoie & Haute-Savoie) avec plus de 2500 marques 'Qualité Tourisme' manquantes.")
+st.write("Afin d'introduire cette partie, voici deux cartes présentant à la fois par région et département le nombre de points d'intêret ne disposant pas de la marque 'Qualité Tourisme' bien qu'ayant été matché sur la base de données de Data.economie.gouv.fr. Comme l'on peut le voir, certaines régions ont un taux de labels manquants extrêmement élevé, notamment la région Rhône-Alpes (et plus particulièrement Savoie et Haute-Savoie) avec plus de 2500 marques 'Qualité Tourisme' manquantes.")
 
 ############################################################################################################################################
 ############################################################################################################################################
