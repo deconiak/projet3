@@ -330,7 +330,7 @@ col_to_drop = ["department_x", "department_y", "code_region"]
 poi_count_total.drop(columns=col_to_drop, inplace=True)
 
 # tableau des régions 
-poi_count_reg = pd.pivot_table(poi_count_total, index=["code_region", "nom_region"], values=["nb POI DATAtourisme", "nb_poi_datagouv", "difference"], aggfunc=np.sum, margins=False).reset_index()
+poi_count_reg = pd.pivot_table(poi_count_total, index=["code_region", "nom_region"], values=["nb POI DATAtourisme", "nb POI datagouv", "difference"], aggfunc=np.sum, margins=False).reset_index()
 
 # fusionner toutes les infos nécessaires à la viz dans un geodataframe
 
