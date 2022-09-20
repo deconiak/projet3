@@ -160,60 +160,60 @@ def graph_date_maj(dataframe, col_date, range_start, range_stop, title):
 ######################################################################################################################################################
 #############################################################TEST CARTES#############################################################################
 ######################################################################################################################################################
- def choropleth_map_diverging(df1, df2, serie_1, serie_2, cmap, title, ax1_title, ax2_title, ax1_label, ax2_label):
+def choropleth_map_diverging(df1, df2, serie_1, serie_2, cmap, title, ax1_title, ax2_title, ax1_label, ax2_label):
 
-    # colormap
-    cmap = cmap
+# colormap
+cmap = cmap
 
-    # normalize color for serie 1
-    vmin, vmax, vcenter = df1[serie_1].min(), df1[serie_1].max(), 0
-    norm1 = TwoSlopeNorm(vmin=vmin, vcenter=vcenter, vmax=vmax)
+# normalize color for serie 1
+vmin, vmax, vcenter = df1[serie_1].min(), df1[serie_1].max(), 0
+norm1 = TwoSlopeNorm(vmin=vmin, vcenter=vcenter, vmax=vmax)
 
-    # create normalized colorbar for dpt
-    cbar1 = plt.cm.ScalarMappable(norm=norm1, cmap=cmap)
+# create normalized colorbar for dpt
+cbar1 = plt.cm.ScalarMappable(norm=norm1, cmap=cmap)
 
-    # normalize color for serie 2
-    vmin, vmax, vcenter = df2[serie_2].min(), df2[serie_2].max(), 0
-    norm2 = TwoSlopeNorm(vmin=vmin, vcenter=vcenter, vmax=vmax)
+# normalize color for serie 2
+vmin, vmax, vcenter = df2[serie_2].min(), df2[serie_2].max(), 0
+norm2 = TwoSlopeNorm(vmin=vmin, vcenter=vcenter, vmax=vmax)
 
-    # create normalized colorbar for dpt
-    cbar2 = plt.cm.ScalarMappable(norm=norm2, cmap=cmap)
+# create normalized colorbar for dpt
+cbar2 = plt.cm.ScalarMappable(norm=norm2, cmap=cmap)
 
-    # Initialize the figure
-    fig = plt.subplots(figsize=(20, 10))
+# Initialize the figure
+fig = plt.subplots(figsize=(20, 10))
 
-    # Map
-    ax1 = fig.add_subplot(121)
-    df1.plot(column=serie_1, 
-                    cmap=cmap, 
-                    norm=norm1, 
-                    legend=False,
-                    edgecolor='black',
-                    linewidth=.1,
-                    ax=ax1)
-    
-    ax2 = fig.add_subplot(122)
-    df2.plot(column=serie_2, 
-                    cmap=cmap, 
-                    norm=norm2, 
-                    legend=False,
-                    edgecolor='black',
-                    linewidth=.1,
-                    ax=ax2)
+# Map
+ax1 = fig.add_subplot(121)
+df1.plot(column=serie_1, 
+                cmap=cmap, 
+                norm=norm1, 
+                legend=False,
+                edgecolor='black',
+                linewidth=.1,
+                ax=ax1)
 
-    # add colorbar
-    fig.colorbar(cbar1, ax=ax1, fraction=0.04, shrink=0.80, aspect=20, label=ax1_label)
-    fig.colorbar(cbar2, ax=ax2, fraction=0.04, shrink=0.80, aspect=20, label=ax2_label)
+ax2 = fig.add_subplot(122)
+df2.plot(column=serie_2, 
+                cmap=cmap, 
+                norm=norm2, 
+                legend=False,
+                edgecolor='black',
+                linewidth=.1,
+                ax=ax2)
 
-    fig.suptitle(title, fontsize=18)
+# add colorbar
+fig.colorbar(cbar1, ax=ax1, fraction=0.04, shrink=0.80, aspect=20, label=ax1_label)
+fig.colorbar(cbar2, ax=ax2, fraction=0.04, shrink=0.80, aspect=20, label=ax2_label)
 
-    ax1.set_title(ax1_title, fontsize=16)
-    ax2.set_title(ax2_title, fontsize=16)
+fig.suptitle(title, fontsize=18)
 
-    ax1.axis('off')
-    ax2.axis('off')
+ax1.set_title(ax1_title, fontsize=16)
+ax2.set_title(ax2_title, fontsize=16)
 
-    st.pyplot(fig) 
+ax1.axis('off')
+ax2.axis('off')
+
+st.pyplot(fig) 
     
 ######################################################################################################################################################
 #############################################################MISE EN PAGE#############################################################################
