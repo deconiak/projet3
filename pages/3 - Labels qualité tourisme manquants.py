@@ -154,7 +154,7 @@ top_28_qt = mix.sort_values('Identifiés Qualité Tourisme dans DATATourisme', a
 
 #Graph 1 
 fig = px.bar(top_28, x="publisher_legal_name", y="taux de comparaison", 
-             title="Taux de POI identifiés par éditeurs en marque Qualité Tourisme ",
+             title="Taux de POI identifiés par éditeurs en marque 'Qualité Tourisme'. ",
              labels={'publisher_legal_name':'Éditeur du POI', 'taux de comparaison':'taux de comparaison en %' })
 fig.update(layout_yaxis_range = [0,100])
 st.plotly_chart(fig, use_container_width=True)
@@ -199,3 +199,5 @@ fig_2.update_layout(autosize=False,
                     legend_title_text='Nombre de POI :',
                    )
 st.plotly_chart(fig_2, use_container_width=True)
+
+st.write("Nous pouvons constater qu'une majorité des POI publiés par les 10 plus gros éditeurs devraient avoir la marque 'Qualité Tourisme' renseignée dans DATATourisme.")
