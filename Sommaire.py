@@ -88,7 +88,7 @@ with st.expander("Vous pouvez cliquer ici afin d'accéder aux différents datase
    st.header("Dataframe de Data.economie.gouv.fr")
    st.dataframe(data_gouv)
 
-  st.subheader("Equipe :bulb:")
+st.subheader("Equipe :bulb:")
 st.write("""Le projet a été réalisé par :
 - Amandine SAGE ARGILES [LinkedIn](https://www.linkedin.com/in/sageamandine/)
 - Sébastien TARRES [LinkedIn](https://www.linkedin.com/in/s%C3%A9bastien-tarres/)
