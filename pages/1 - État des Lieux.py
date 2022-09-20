@@ -5,7 +5,6 @@ from pywaffle import Waffle
 import matplotlib.pyplot as plt
 from wordcloud import WordCloud
 from datetime import date
-from PIL import Image
 import geopandas as gpd
 from matplotlib.colors import TwoSlopeNorm
 import numpy as np
@@ -345,11 +344,7 @@ choropleth_map_diverging(region_MQ, department_MQ, "difference", "difference", "
                          "par région", "par département", "nbr POI", "nbr POI")
 
 
-############## Image si carte marche pas ################
 
-#carte_choro_1 = Image.open(r'C:\Users\camil\Documents\WildCodeSchool\project_03\choro_1_finale.JPG')
-
-# st.image(carte_choro_1)
 
 #### CAPTION ################################
 st.caption("""Nombre de POI = nombre POI DATAtourisme - nombre POI Datagouv. En vert: les régions et départements pour lesquels on retrouve plus de POI chez DATAtourisme par rapport à Datagouv. 
