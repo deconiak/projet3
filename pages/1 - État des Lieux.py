@@ -210,10 +210,10 @@ def choropleth_map_diverging(df1, df2, serie_1, serie_2, cmap, title, ax1_title,
     ax1.set_title(ax1_title, fontsize=16)
     ax2.set_title(ax2_title, fontsize=16)
 
-    ax1.axis('off')
-    ax2.axis('off')
+    #ax1.axis('off')
+    #ax2.axis('off')
     plt.axis('off')
-    fig.axis('off')
+    
 
     st.pyplot(fig) 
     
