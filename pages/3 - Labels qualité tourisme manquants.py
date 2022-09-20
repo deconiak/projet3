@@ -103,9 +103,9 @@ st.write("Afin d'introduire cette partie, voici deux cartes présentant à la fo
 ############################################################################################################################################
 
 # nombre de POI matchés au total
-departement_matched_global = groupby_departement(df_match, "department", "matched")
+departement_matched_global = groupby_departement(df_global, "department", "matched")
 # nombre de POI matchés n'ayant pas la marque qualité
-departement_matched_not_QT = groupby_departement(df_match[df_match["qualite_tourisme"] == False], "department", "matched")
+departement_matched_not_QT = groupby_departement(df_global[df_global["qualite_tourisme"] == False], "department", "matched")
 # fusionner ces dataframe avec la liste des officielles des départements afin d'afficher les 101 départements français
 dpt_match_global = pd.merge(liste_dpt_code, departement_matched_global, how="left", left_on="nom_departement", right_on="department").fillna(0)
 dpt_match_results = pd.merge(dpt_match_global, departement_matched_not_QT, how="left", left_on="nom_departement", right_on="department", suffixes=["_total", "_notMQ"]).fillna(0)
