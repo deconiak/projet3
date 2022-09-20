@@ -132,7 +132,7 @@ choropleth_map_normalize(region_total_notMQ, department_total_notMQ, "matched_no
 
 
 st.write("L'exemple ci-dessous mets en avant le taux en pourcentage d'efficacité en terme de matchs effectués depuis la base de données globale de DATATourisme avec la base de Data.economie.gouv.fr ET étant dans la base réduite de DATATourisme. Le premier graphique affiche en fonction du pourcentage de réussite et le second en terme de quantité de POI brute.")
-st.write("Cela permets surtout de mettre en avant le fait que certains organismes ont un taux de succés de matchs élevé en pourcentage mais une faible quantité de POI globale.")
+st.write("Cela permet surtout de mettre en avant le fait que certains organismes ont un taux de succés de matchs élevé en pourcentage mais une faible quantité de POI globale.")
 
 #Bloc 1 - 
 no_selec = df_global[['publisher_legal_name','@id']]
