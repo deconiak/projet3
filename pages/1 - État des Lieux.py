@@ -25,6 +25,10 @@ liste_dpt_code = pd.read_csv("departements-france.csv", dtype={"code_region": ob
 liste_dpt_code["nom_departement"] = liste_dpt_code["nom_departement"].str.lower()
 liste_dpt_code["nom_region"] = liste_dpt_code["nom_region"].str.lower()
 
+## Import Geojson
+gdf_dpt = gpd.read_file("departement_avec_outremer_rapprochée.json")
+gdf_reg = gpd.read_file("region_avec_outremer_rapprochée.json")
+
 ######################################################################################################################################################
 ######################################################################################################################################################
 ###############################################################Fonction WAFFLE########################################################################
