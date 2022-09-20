@@ -341,15 +341,15 @@ region_MQ = gdf_reg.merge(poi_count_reg[["code_region", "difference"]], left_on=
 
 ### SHOW MAP #########
 choropleth_map_diverging(region_MQ, department_MQ, "difference", "difference", "BrBG", 
-                         "Nombre de points Marque Qualité Tourisme :\ndifférence entre DATAtourisme et Datagouv", 
+                         "Nombre de points Marque Qualité Tourisme :\ndifférence entre DATAtourisme et Data.economie.gouv.fr", 
                          "par région", "par département", "nbr POI", "nbr POI")
 
 
 
 
 #### CAPTION ################################
-st.caption("""Nombre de POI = nombre POI DATAtourisme - nombre POI Datagouv. En vert: les régions et départements pour lesquels on retrouve plus de POI chez DATAtourisme par rapport à Datagouv. 
-En marron: les régions et départements pour lesquels on retrouve moins de POI chez DATAtourisme par rapport à Datagouv. 
+st.caption("""Nombre de POI = nombre POI DATAtourisme - nombre POI Data.economie.gouv.fr. En vert: les régions et départements pour lesquels on retrouve plus de POI chez DATAtourisme par rapport à Data.economie.gouv.fr. 
+En marron: les régions et départements pour lesquels on retrouve moins de POI chez DATAtourisme par rapport à Data.economie.gouv.fr. 
 """)
 
 st.write("""On met déjà en avant des régions ayant enregistré peu de POI marque "Qualité Tourisme" sur la base DATAtourisme: Auvergne-Rhône-Alpes et Provence-Alpes-Côte d'Azur. 
@@ -372,7 +372,7 @@ with st.expander("Vous pouvez cliquer ici afin d'accéder aux détails des régi
 
     #Choix et génération du DF filtré selon la selec.
     selected = st.selectbox("Selectionnez une région", select)
-    st.dataframe(df_to_show[["departement", "nb POI DATAtourisme", "nb POI datagouv", "différence"]][df_to_show["nom_region"] == selected].style.set_precision(0))
+    st.dataframe(df_to_show[["departement", "nb POI DATAtourisme", "nb POI Data.economie.gouv.fr", "différence"]][df_to_show["nom_region"] == selected].style.set_precision(0))
 
 ###############################################################CONCLUSION PARTIE#######################################################################
  
