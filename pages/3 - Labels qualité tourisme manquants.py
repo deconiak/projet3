@@ -150,7 +150,7 @@ mix['publisher_legal_name'] = mix['publisher_legal_name'].str.replace('(ec9e16c5
 mix['publisher_legal_name'] = mix['publisher_legal_name'].str.replace('(5afbb216-4578-4092-9257-5073ea26c884)','')
 mix['publisher_legal_name'] = mix['publisher_legal_name'].str.replace('(42325dda-b66f-43b0-862c-f552068f0e8d)','')
 top_28 = mix.sort_values(['taux de comparaison'], ascending=False).head(28)
-top_28_qt = mix.sort_values('PoI_label_Qualité_Tourisme', ascending =False).head(28)
+top_28_qt = mix.sort_values('Identifiés Qualité Tourisme dans DATATourisme', ascending =False).head(28)
 
 #Graph 1 
 fig = px.bar(top_28, x="publisher_legal_name", y="taux de comparaison", 
@@ -160,9 +160,9 @@ fig.update(layout_yaxis_range = [0,100])
 st.plotly_chart(fig, use_container_width=True)
 
 #Graph 2 
-fig_3 = px.bar(top_28_qt, x="publisher_legal_name", y="PoI_label_Qualité_Tourisme", 
+fig_3 = px.bar(top_28_qt, x="publisher_legal_name", y="Identifiés Qualité Tourisme dans DATATourisme", 
              title="Organismes ayant le plus haut nombre de POI correctement enregistrés dans la base de DATATourisme",
-             labels={'publisher_legal_name':'Éditeur du POI', 'PoI_label_Qualité_Tourisme':"Nombre d'organismes possédant la marque" })
+             labels={'publisher_legal_name':'Éditeur du POI', 'Identifiés Qualité Tourisme dans DATATourisme':"Nombre d'organismes possédant la marque" })
 st.plotly_chart(fig_3, use_container_width=True)
 
 st.write("Il est possible de visualiser directement ci-dessous les éditeurs ayant au moins 1 POI matché correctement sur Data.economie.gouv.fr et étant présent dans la base réduite de DATATourisme.")
