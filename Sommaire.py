@@ -26,9 +26,9 @@ st.title("Projet d'étude de la Wild Code School en collaboration avec l'organis
 st.write("👈 Cliquez sur l'un des liens dans le menu de gauche afin d'accéder à la page de votre choix.")
 
 st.subheader(" Objectifs du projet :bulb:")
-st.write(":arrow_right: Comparer les données disponibles dans DataTourisme avec celles disponibles sur le site de Data.economie.gouv.fr.")
+st.write(":arrow_right: Comparer les données disponibles dans DATATourisme avec celles disponibles sur le site de Data.economie.gouv.fr.")
 st.write(":arrow_right: Focus sur la marque 'Qualité Tourisme'.")
-st.write(":arrow_right: Livrable sous forme de « photographie à un instant T » : cartes, graphiques, chiffres clés, exemples significatifs, infographie permettant d’identiquer les manques/écarts.")
+st.write(":arrow_right: Livrable sous forme de « photographie à un instant T » : cartes, graphiques, chiffres clés, exemples significatifs, infographies permettant d’identifier les manques/écarts.")
 
 st.write('Il est possible de télécharger le fichier readme du projet en cliquant sur le bouton ci-dessous. :arrow_lower_left:') 
 text_contents = '''Fichier d'aide à l'utilisation des fichiers fournis.
@@ -59,33 +59,42 @@ Le fichier "blablba.py" est le code de notre application, il fait appel aux fich
 Plusieurs fichiers CSV qui sont les différentes bases de données que nous utilisons pour le rendu :
     
     - "df_matched_true.csv" Est la base de données des POI que nous avons réussi à faire matcher sur les données de DataGouv.
-    - "df_datagouv_clean.csv" C'est le fichier officiel de la marque "Qualité Tourisme" issu de la DGE.
+    - "df_datagouv_clean.csv" C'est le fichier officiel de la marque "Qualité Tourisme" issu de Data.economie.gouv.fr.
     - "df_QT_notmatched.csv"  La base des POI ayant la marque Qualité Tourisme qui n'ont pas matché.
     - "departements-france.csv" est la liste des départements Français.
-    - "data_tourisme_MQ_clean.csv" C'est la base de tous les POI marque Qualité de Datatourisme.'''
+    - "data_tourisme_MQ_clean.csv" C'est la base de tous les POI marque Qualité de DATAtourisme.'''
 st.download_button('ReadMe_Projet_Partenaire', text_contents)
 
 st.subheader("Sommaire :bulb:")
 st.write('''
     - Un état des lieux concernant les deux bases de données utilisées.
-    - Démarche de comparaison des points d'intêret entre DataTourisme et DataGouv. 
+    - Démarche de comparaison des points d'intêret entre  DATATourisme et Data.economie.gouv.fr. 
     - Focus sur les organismes dont la marque 'Qualité Tourisme' est absente.  
     - Observations des offices de tourisme. 
   '''
     )
 
-st.warning(":warning: **Mise en garde** : Du côté DataTourisme, une grande partie des POI ont été mis à jour en 2022. Tandis que pour les données de Datagouv, la dernière mise à jour date de février 2021. Il convient de garder en tête que la différence du nombre d'établissements Marque Qualité Tourisme  entre les deux bases de données peut être en partie due à cette différence temporelle.")
+st.warning(":warning: **Mise en garde** : Du côté DataTourisme, une grande partie des POI ont été mis à jour en 2022. Tandis que pour les données de Data.economie.gouv.fr, la dernière mise à jour date de février 2021. Il convient de garder en tête que la différence du nombre d'établissements Marque Qualité Tourisme  entre les deux bases de données peut être en partie due à cette différence temporelle.")
 
 st.warning(":warning: Le terme POI utilisé de nombreuses fois sur ce support correspond au terme 'Point d'intêret touristique'.")
 
 with st.expander("Vous pouvez cliquer ici afin d'accéder aux différents datasets bruts ayant servi de fondation pour ce projet ⬇️ "):
-  tab1, tab2 = st.tabs(["Dataframe de Data Tourisme", "Dataframe de Data.économie.gouv"])
+  tab1, tab2 = st.tabs(["Dataframe de DATATourisme", "Dataframe de Data.economie.gouv.fr"])
   with tab1:
-   st.header("Dataframe de Data Tourisme")
+   st.header("Dataframe de DATATourisme")
    st.dataframe(data_tourisme)
 
   with tab2:
-   st.header("Dataframe de Data.économie.gouv")
+   st.header("Dataframe de Data.economie.gouv.fr")
    st.dataframe(data_gouv)
+
+  st.subheader("Equipe :bulb:")
+st.write("""Le projet a été réalisé par :
+- Amandine SAGE ARGILES [LinkedIN](%s)" % https://www.linkedin.com/in/sageamandine/
+- Sébastien TARRES
+- Camille SOGNO
+- Sébastien BERGER
+
+""")
 
 
