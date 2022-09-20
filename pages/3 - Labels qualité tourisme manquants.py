@@ -143,7 +143,7 @@ select_only_true = select_only_true.groupby('publisher_legal_name').count().sort
 mix = no_selec.merge(select_only_true, how='left', on='publisher_legal_name').fillna(0)
 mix = mix.rename(columns={'@id_x':'Supposément Qualité Tourisme','@id_y':'Identifiés Qualité Tourisme dans DATATourisme'})
 mix['Identifiés Qualité Tourisme dans DATATourisme'] = mix['Identifiés Qualité Tourisme dans DATATourisme'].astype(int)
-mix['taux de comparaison'] = round((mix.PoI_label_Qualité_Tourisme - mix.Total_des_PoI ) / (mix.Total_des_PoI) * 100,2) +100
+mix['taux de comparaison'] = round((mix["Identifiés Qualité Tourisme dans DATATourisme"] - mix["Supposément Qualité Tourisme"] ) / (mix["Supposément Qualité Tourisme"]) * 100,2) +100
 mix = mix.reset_index()
 mix['publisher_legal_name'] = mix['publisher_legal_name'].str.replace('(62c8b2ca-8176-4b00-a97f-cbe5df0e3f9e)','')
 mix['publisher_legal_name'] = mix['publisher_legal_name'].str.replace('(ec9e16c5-3c22-4f89-b841-c60ce3bdc220)','')
