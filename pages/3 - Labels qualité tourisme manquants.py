@@ -141,7 +141,7 @@ select_only_true=df_global[df_global['qualite_tourisme']==True]
 select_only_true = select_only_true[['publisher_legal_name','@id']]
 select_only_true = select_only_true.groupby('publisher_legal_name').count().sort_values(['@id'], ascending=False)
 mix = no_selec.merge(select_only_true, how='left', on='publisher_legal_name').fillna(0)
-mix = mix.rename(columns={'@id_x':'Total_des_PoI','@id_y':'PoI_label_Qualité_Tourisme'})
+mix = mix.rename(columns={'@id_x':'Supposément Qualité Tourisme','@id_y':'Identifiés Qualité Tourisme dans DATATourisme'})
 mix['PoI_label_Qualité_Tourisme'] = mix['PoI_label_Qualité_Tourisme'].astype(int)
 mix['taux de comparaison'] = round((mix.PoI_label_Qualité_Tourisme - mix.Total_des_PoI ) / (mix.Total_des_PoI) * 100,2) +100
 mix = mix.reset_index()
@@ -187,6 +187,20 @@ mix_orga = mix[mix['Total_des_PoI'] > 0].sort_values(['Total_des_PoI'], ascendin
 mix_orga_10 = mix_orga.head(10)
 
 #Graph 2 
-fig_2 = px.bar(mix_orga_10, x='publisher_legal_name', y=['Total_des_PoI', 'PoI_label_Qualité_Tourisme'], title="Quantité de POI publiés par les 10 plus gros éditeurs", labels={'publisher_legal_name':'Éditeur', 'value' : 'Total', "Total_des_PoI" : "POI supposément Qualité Tourisme", "PoI_label_Qualité_Tourisme" : "POI identifiés Qualité Tourisme dans DATATourisme"  }, text_auto=True)
-fig_2.update_layout(autosize=False, width=1000, height=800)
+fig_2 = px.bar(mix_orga_10, 
+               x='publisher_legal_name', 
+               y=['Total_des_PoI', 'PoI_label_Qualité_Tourisme'], 
+               title="Quantité de POI publiés par les 10 plus gros éditeurs", 
+               labels={'publisher_legal_name':'Éditeur', 'value' : 'Total',
+               
+                       
+                       #"Total_des_PoI" : "Supposément Qualité Tourisme", "PoI_label_Qualité_Tourisme" : "Identifiés Qualité Tourisme dans DATATourisme"  }, 
+               text_auto=True
+              )
+fig_2.update_layout(autosize=False, 
+                    width=1000, height=800,
+                    legend_title_text='Nombre de POI :',
+                    xaxis_title="Notes",
+                    yaxis_title="Nombres de notes"
+                   )
 st.plotly_chart(fig_2, use_container_width=True)
