@@ -6,17 +6,79 @@ import datetime
 import plotly.express as px
 import matplotlib.pyplot as plt
 import squarify
+from matplotlib.colors import Normalize
+import geopandas as gpd
+
 
 #Images
 logo = Image.open('logo_adn.png')
 image_icon = Image.open('logo_w.jpg')
-cartes = Image.open('choro_2_finale.JPG')
+
 
 #Page config
 st.set_page_config(layout = 'wide',page_title='Focus Label Qualité Tourisme - Projet WCS',page_icon=image_icon)
 
 #Imports 
 df_global = pd.read_csv('df_matched_true.csv', sep=',')
+
+## Import department list
+liste_dpt_code = pd.read_csv("departements-france.csv", dtype={"code_region": object})
+liste_dpt_code["nom_departement"] = liste_dpt_code["nom_departement"].str.lower()
+liste_dpt_code["nom_region"] = liste_dpt_code["nom_region"].str.lower()
+
+## Import Geojson
+gdf_dpt = gpd.read_file("departement_avec_outremer_rapprochée.json")
+gdf_reg = gpd.read_file("region_avec_outremer_rapprochée.json")
+
+############################################################################################################################################
+############################################################################################################################################
+########################################################Fonction carte######################################################################
+############################################################################################################################################
+############################################################################################################################################
+
+def choropleth_map_normalize(df1, df2, serie_1, serie_2, cmap, title, ax1_title, ax2_title, ax1_label, ax2_label):
+    # colormap
+    cmap = cmap
+    # normalize color for reg
+    vmin, vmax = 0, df1[serie_1].max()
+    norm1 = Normalize(vmin=vmin, vmax=vmax)
+    # create normalized colorbar for dpt
+    cbar1 = plt.cm.ScalarMappable(norm=norm1, cmap=cmap)
+    # normalize color for dpt
+    vmin, vmax = 0, df2[serie_2].max()
+    norm2 = Normalize(vmin=vmin, vmax=vmax)
+    # create normalized colorbar for dpt
+    cbar2 = plt.cm.ScalarMappable(norm=norm2, cmap=cmap)
+    # Initialize the figure
+    fig, ax = plt.subplots(figsize=(20, 10))
+    # Map
+    ax1 = plt.subplot(121)
+    df1.plot(column=serie_1, 
+                    cmap=cmap, 
+                    norm=norm1, 
+                    legend=False,
+                    edgecolor='black',
+                    linewidth=.1,
+                    ax=ax1)
+    ax2 = plt.subplot(122)
+    df2.plot(column=serie_2, 
+                    cmap=cmap, 
+                    norm=norm2, 
+                    legend=False,
+                    edgecolor='black',
+                    linewidth=.1,
+                    ax=ax2)
+    # add colorbar
+    fig.colorbar(cbar1, ax=ax1, fraction=0.04, shrink=0.80, aspect=20, label=ax1_label)
+    fig.colorbar(cbar2, ax=ax2, fraction=0.04, shrink=0.80, aspect=20, label=ax2_label)
+    fig.suptitle(title, fontsize=18)
+    ax1.set_title(ax1_title, fontsize=16)
+    ax2.set_title(ax2_title, fontsize=16)
+    ax1.axis('off')
+    ax2.axis('off')
+    ax.axis('off')
+    st.pyplot(fig)
+
 
 #Sidebar
 st.sidebar.success("Sélectionnez une page au dessus.")
@@ -27,7 +89,39 @@ st.title("Focus sur les organismes dont les marques 'Qualité Tourisme' sont man
 
 st.write("Afin d'introduire cette partie, voici deux cartes présentant à la fois par région & département le nombre de points d'intêret ne disposant pas de la marque 'Qualité Tourisme' bien qu'ayant été matché sur la base de données de DataGouv. Comme l'on peut le voir, certaines régions ont un taux de labels manquants extrêmement élevé, notamment la région Rhône-Alpes (et plus particulièrement Savoie & Haute-Savoie) avec plus de 2500 marques 'Qualité Tourisme' manquantes.")
 
-st.image(cartes)
+############################################################################################################################################
+############################################################################################################################################
+########################################################Carte###############################################################################
+############################################################################################################################################
+############################################################################################################################################
+
+# nombre de POI matchés au total
+departement_matched_global = groupby_departement(df_match, "department", "matched")
+# nombre de POI matchés n'ayant pas la marque qualité
+departement_matched_not_QT = groupby_departement(df_match[df_match["qualite_tourisme"] == False], "department", "matched")
+# fusionner ces dataframe avec la liste des officielles des départements afin d'afficher les 101 départements français
+dpt_match_global = pd.merge(liste_dpt_code, departement_matched_global, how="left", left_on="nom_departement", right_on="department").fillna(0)
+dpt_match_results = pd.merge(dpt_match_global, departement_matched_not_QT, how="left", left_on="nom_departement", right_on="department", suffixes=["_total", "_notMQ"]).fillna(0)
+dpt_match_results.sort_values(by="matched_total", ascending=False, inplace=True)
+# suppression colonnes inutiles
+del dpt_match_results["department_total"]
+del dpt_match_results["department_notMQ"]
+# les régions
+region_matched_not_QT = pd.pivot_table(dpt_match_results, index=["code_region", "nom_region"], 
+                                       values=["matched_total", "matched_notMQ"], 
+                                       aggfunc=np.sum,
+                                       margins=False).reset_index()
+# fusionner toutes les infos nécessaires à la viz dans un geodataframe
+department_total_notMQ = gdf_dpt.merge(dpt_match_results[["code_departement", "matched_notMQ"]], left_on=["code"], right_on=["code_departement"])
+region_total_notMQ = gdf_reg.merge(region_matched_not_QT[["code_region", "matched_notMQ"]], left_on=["code"], right_on=["code_region"])
+choropleth_map_normalize(region_total_notMQ, department_total_notMQ, "matched_notMQ", "matched_notMQ", "Oranges", "Nombre de points d'intérêt :\nMarque Qualité Tourisme manquante", "par région", "par département", "nbr POI", "nbr POI")
+
+############################################################################################################################################
+############################################################################################################################################
+######################################################## FIN Carte###############################################################################
+############################################################################################################################################
+############################################################################################################################################
+
 
 st.write("L'exemple ci-dessous mets en avant le taux en pourcentage d'efficacité en terme de matchs effectués depuis la base de données globale de DataTourisme avec la base de DataGouv ET étant dans la base réduite de DataTourisme. Le premier graphique affiche en fonction du pourcentage de réussite et le second en terme de quantité de POI brute.")
 st.write("Cela permets surtout de mettre en avant le fait que certains organismes ont un taux de succés de matchs élevé en pourcentage mais une faible quantité de POI globale.")
