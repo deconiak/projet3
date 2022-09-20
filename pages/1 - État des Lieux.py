@@ -206,8 +206,7 @@ st.write("""Du côté DATAtourisme, les catégories et sous-catégories de POI s
     Ces catégories sont indiquées principalement en anglais avec pour catégorie la plus présente : les hébergements (accommodation, lodging business, hotel trade, camping etc).
     """)
 
-st.write("""Du côté Data.economie.gouv.fr, les catégories sont moins nombreuses (une dizaine environ). 
-    La catégorie la plus représentée est celle des hôtels-restaurants. 
+st.write("""Du côté Datagouv, les catégories sont moins nombreuses (une dizaine environ) car elles sont calées sur le référentiel de la marque Qualité Tourisme. La catégorie la plus représentée est celle des hôtels-restaurants. 
     """)
 
 st.write("""Ces différences empêchent une comparaison directe sur les catégories. 
