@@ -187,6 +187,6 @@ mix_orga = mix[mix['Total_des_PoI'] > 0].sort_values(['Total_des_PoI'], ascendin
 mix_orga_10 = mix_orga.head(10)
 
 #Graph 2 
-fig_2 = px.bar(mix_orga_10, x='publisher_legal_name', y=['Total_des_PoI', 'PoI_label_Qualité_Tourisme'], title="Les 10 éditeurs ayant le plus de points d'intêrets publiés", labels={'publisher_legal_name':'Éditeur du POI', 'value' : 'Total' }, text_auto=True)
+fig_2 = px.bar(mix_orga_10, x='publisher_legal_name', y=['Total_des_PoI', 'PoI_label_Qualité_Tourisme'], title="Quantité de POI publiés par les 10 plus gros éditeurs", labels={'publisher_legal_name':'Éditeur', 'value' : 'Total', "Total_des_PoI" : "POI supposément Qualité Tourisme", "PoI_label_Qualité_Tourisme" : "POI identifiés Qualité Tourisme dans DATATourisme"  }, text_auto=True)
 fig_2.update_layout(autosize=False, width=1000, height=800)
 st.plotly_chart(fig_2, use_container_width=True)
