@@ -74,7 +74,7 @@ st.write('''
   '''
     )
 
-st.warning(":warning: **Mise en garde** : Du côté DataTourisme, une grande partie des POI ont été mis à jour en 2022. Tandis que pour les données de Data.economie.gouv.fr, la dernière mise à jour date de février 2021. Il convient de garder en tête que la différence du nombre d'établissements Marque Qualité Tourisme  entre les deux bases de données peut être en partie due à cette différence temporelle.")
+st.warning(":warning: **Mise en garde** : Du côté DATATourisme, une grande partie des POI ont été mis à jour en 2022. Tandis que pour les données de Data.economie.gouv.fr, la dernière mise à jour date de février 2021. Il convient de garder en tête que la différence du nombre d'établissements Marque 'Qualité Tourisme'  entre les deux bases de données peut être en partie due à cette différence temporelle.")
 
 st.warning(":warning: Le terme POI utilisé de nombreuses fois sur ce support correspond au terme 'Point d'intêret touristique'.")
 
