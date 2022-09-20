@@ -11,3 +11,4 @@ streamlit==1.11.0
 wordcloud==1.8.2.2
 xlsxwriter==3.0.1
 pyxlsb==1.0.9
+geopandas==0.11.1
