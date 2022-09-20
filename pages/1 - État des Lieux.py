@@ -323,7 +323,7 @@ poi_count_total.sort_values(by="nb POI datagouv", ascending=False, inplace=True)
 
 # ajout colonne différence
 # pour identifer le nombre de POI manquants (valeur négative) ou en plus (valeur positive) dans DATAtourisme
-poi_count_total["difference"] = poi_count_total["nb POI datatourisme"] - poi_count_total["nb POI datagouv"]
+poi_count_total["difference"] = poi_count_total["nb POI DATAtourisme"] - poi_count_total["nb POI datagouv"]
 
 # suppression colonnes inutiles
 col_to_drop = ["department_x", "department_y", "code_region"]
