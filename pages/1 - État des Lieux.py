@@ -316,16 +316,16 @@ dpt_count_DT.rename(columns={"qualite_tourisme":"nb POI DATAtourisme"}, inplace=
 
 # compte nombre de poi par département datagouv
 dpt_count_DG = groupby_departement(df_datagouv, "DEPARTEMENT", "NOM ETABLISSEMENT")
-dpt_count_DG.rename(columns={"NOM ETABLISSEMENT":"Data.economie.gouv.fr", "DEPARTEMENT":"department"}, inplace=True)
+dpt_count_DG.rename(columns={"NOM ETABLISSEMENT":"nb POI Data.economie.gouv.fr", "DEPARTEMENT":"department"}, inplace=True)
 
 # fusionner ces dataframe avec la liste des officielles des départements afin d'afficher les 101 départements français
 poi_count = pd.merge(liste_dpt_code, dpt_count_DT, how="left", left_on="nom_departement", right_on="department").fillna(0)
 poi_count_total = pd.merge(poi_count, dpt_count_DG, how="left", left_on="nom_departement", right_on="department").fillna(0)
-poi_count_total.sort_values(by="Data.economie.gouv.fr", ascending=False, inplace=True)
+poi_count_total.sort_values(by="nb POI Data.economie.gouv.fr", ascending=False, inplace=True)
 
 # ajout colonne différence
 # pour identifer le nombre de POI manquants (valeur négative) ou en plus (valeur positive) dans DATAtourisme
-poi_count_total["difference"] = poi_count_total["nb POI DATAtourisme"] - poi_count_total["Data.economie.gouv.fr"]
+poi_count_total["difference"] = poi_count_total["nb POI DATAtourisme"] - poi_count_total["nb POI Data.economie.gouv.fr"]
 
 # suppression colonnes inutiles
 col_to_drop = ["department_x", "department_y"]
