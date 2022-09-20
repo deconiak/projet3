@@ -197,7 +197,5 @@ fig_2 = px.bar(mix_orga_10,
 fig_2.update_layout(autosize=False, 
                     width=1000, height=800,
                     legend_title_text='Nombre de POI :',
-                    xaxis_title="Notes",
-                    yaxis_title="Nombres de notes"
                    )
 st.plotly_chart(fig_2, use_container_width=True)
