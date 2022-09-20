@@ -191,10 +191,7 @@ fig_2 = px.bar(mix_orga_10,
                x='publisher_legal_name', 
                y=['Total_des_PoI', 'PoI_label_Qualité_Tourisme'], 
                title="Quantité de POI publiés par les 10 plus gros éditeurs", 
-               labels={'publisher_legal_name':'Éditeur', 'value' : 'Total',
-               
-                       
-                       #"Total_des_PoI" : "Supposément Qualité Tourisme", "PoI_label_Qualité_Tourisme" : "Identifiés Qualité Tourisme dans DATATourisme"  }, 
+               labels={'publisher_legal_name':'Éditeur', 'value' : 'Total',                                  
                text_auto=True
               )
 fig_2.update_layout(autosize=False, 
