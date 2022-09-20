@@ -6,7 +6,7 @@ import matplotlib.pyplot as plt
 from wordcloud import WordCloud
 from datetime import date
 from PIL import Image
-import geopandas
+import geopandas as gpd
 
 image = Image.open('logo_adn.png')
 image_icon = Image.open('logo_w.jpg')
