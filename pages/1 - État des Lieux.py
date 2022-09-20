@@ -158,13 +158,13 @@ def graph_date_maj(dataframe, col_date, range_start, range_stop, title):
 
 st.title("Etats des lieux")
 
-st.write("""Les données de Datagouv et Datatourisme concernant la marque “Qualité Tourisme” ne présentent pas le même nombre de POI. 
+st.write("""Les données de Data.economie.gouv.fr et DATAtourisme concernant la marque “Qualité Tourisme” ne présentent pas le même nombre de POI. 
 L’objectif de notre étude est d’identifier les POI communs aux deux sources de données. 
 """)
 
 col1, col2, col3, col4= st.columns(4)
-col2.metric("Source Datatourisme",f'{df_datatourisme["id"].nunique()} POI')
-col3.metric("Source Datagouv", f'{df_datagouv["id"].nunique()} POI')
+col2.metric("Source DATAtourisme",f'{df_datatourisme["id"].nunique()} POI')
+col3.metric("Source Data.economie.gouv.fr", f'{df_datagouv["id"].nunique()} POI')
 
 
 st.write("""Problème principal : Les données à comparer proviennent de sources différentes et n’ont pas été compilées de la même façon.
@@ -182,8 +182,8 @@ date_1 = date(2021, 8, 31)
 date_2 = date(2022, 8, 31)  
 graph_date_maj(df_datatourisme, 'last_update', date_1, date_2, "Nombre de POI mis à jour sur l'année")
 
-st.write("""Du côté Datatourisme, une grande partie des POI ont été mis à jour en 2022. 
-    Tandis que pour les données de Datagouv, la dernière mise à jour date de février 2021. 
+st.write("""Du côté DATAtourisme, une grande partie des POI ont été mis à jour en 2022. 
+    Tandis que pour les données de Data.economie.gouv.fr, la dernière mise à jour date de février 2021. 
     Il convient de garder en tête que la différence du nombre de POI "Qualité Tourisme" entre les deux sources de données peut être en partie due à cette différence temporelle.""")
 
 #############################################################WORDCLOUDS#################################################################################
@@ -202,11 +202,11 @@ with col2 :
 
 
 
-st.write("""Du côté Datatourisme, les catégories et sous-catégories de POI sont nombreuses (plus d’une centaine). 
+st.write("""Du côté DATAtourisme, les catégories et sous-catégories de POI sont nombreuses (plus d’une centaine). 
     Ces catégories sont indiquées principalement en anglais avec pour catégorie la plus présente : les hébergements (accommodation, lodging business, hotel trade, camping etc).
     """)
 
-st.write("""Du côté Datagouv, les catégories sont moins nombreuses (une dizaine environ). 
+st.write("""Du côté Data.economie.gouv.fr, les catégories sont moins nombreuses (une dizaine environ). 
     La catégorie la plus représentée est celle des hôtels-restaurants. 
     """)
 
@@ -224,17 +224,17 @@ with col1 :
     data_DT_MQ = {'Département représentés': df_datatourisme["department"].nunique(),
               'Département non-représentés': 101-df_datatourisme["department"].nunique()
               }
-    my_waffle(data_DT_MQ, 'Marque "Qualité Tourisme"\nDataTourisme')
+    my_waffle(data_DT_MQ, 'Marque "Qualité Tourisme"\nDATATourisme')
 
 with col2 : 
     # nombre de département pour les établissemnent marque qualité de Datagouv
     data_DG_MQ = {'Département représentés': df_datagouv["DEPARTEMENT"].nunique(),
               'Département non-représentés': 101-df_datagouv["DEPARTEMENT"].nunique()
               }
-    my_waffle(data_DG_MQ, 'Marque "Qualité Tourisme"\nDataGouv')
+    my_waffle(data_DG_MQ, 'Marque "Qualité Tourisme"\nData.economie.gouv.fr')
 
 
-st.write("""On ne retrouve que 58 départements différents du côté Datatourisme contre 99 du côté Datagouv (Mayotte et La Guadeloupe ne figurent pas dans la liste).""")
+st.write("""On ne retrouve que 58 départements différents du côté DATAtourisme contre 99 du côté Data.economie.gouv.fr (Mayotte et La Guadeloupe ne figurent pas dans la liste).""")
 
 ###############################################################CARTES#################################################################################
     
@@ -244,11 +244,11 @@ carte_choro_1 = Image.open('choro_1_finale.JPG')
 
 st.image(carte_choro_1)
 
-st.caption("""Nombre de POI = nombre POI Datatourisme - nombre POI Datagouv. En vert: les régions et départements pour lesquels on retrouve plus de POI chez Datatourisme par rapport à Datagouv. 
-En marron: les régions et départements pour lesquels on retrouve moins de POI chez Datatourisme par rapport à Datagouv. 
+st.caption("""Nombre de POI = nombre POI DATAtourisme - nombre POI Data.economie.gouv.fr. En vert: les régions et départements pour lesquels on retrouve plus de POI chez DATAtourisme par rapport à Data.economie.gouv.fr. 
+En marron: les régions et départements pour lesquels on retrouve moins de POI chez DATAtourisme par rapport à Data.economie.gouv.fr. 
 """)
 
-st.write("""On met déjà en avant des régions ayant enregistré peu de POI marque "Qualité Tourisme” sur la base Datatourisme: Auvergne-Rhône-Alpes et Provence-Alpes-Côte d’Azur. 
+st.write("""On met déjà en avant des régions ayant enregistré peu de POI marque "Qualité Tourisme” sur la base DATAtourisme: Auvergne-Rhône-Alpes et Provence-Alpes-Côte d’Azur. 
 À l'inverse, le Grand-Est et les Pays de la Loire enregistrent davantage de POI. 
 """)
 ###########DATAFRAME#####################################
