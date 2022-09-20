@@ -80,6 +80,13 @@ def choropleth_map_normalize(df1, df2, serie_1, serie_2, cmap, title, ax1_title,
     st.pyplot(fig)
 
 
+
+########################################################Fonction Groupby####################################################################
+def groupby_departement(dataframe, column, col_to_count):
+    df = dataframe.groupby(by=column)[col_to_count].count().to_frame().sort_values(col_to_count, ascending=False).reset_index()
+    return df
+    
+    
 #Sidebar
 st.sidebar.success("Sélectionnez une page au dessus.")
 st.sidebar.image(logo)
