@@ -84,8 +84,8 @@ st.write("")
 st.write("")
 
 
-st.write("Nous avons filtré les offices de tourisme en utilisant la catégorie “localtouristoffice” des POI que nous avons réussi à faire correspondre avec la base de DataGouv.")
-st.write("Parmi ces 593 établissements, nous regardons combien d’établissements ont la marque Qualité Tourisme dans les données DataTourisme.")
+st.write("Nous avons filtré les offices de tourisme en utilisant la catégorie “localtouristoffice” des POI que nous avons réussi à faire correspondre avec la base de Data.economie.gouv.fr.")
+st.write("Parmi ces 593 établissements, nous regardons combien d’établissements ont la marque 'Qualité Tourisme' dans les données DataTourisme.")
 
 st.write("")
 st.write("")
