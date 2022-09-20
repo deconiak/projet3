@@ -141,7 +141,7 @@ def venndiagram_results(set_1, set_2, set_3):
     #  Titre et annotation
     plt.title("Résultat des comparaisons", fontsize=16)
 
-    plt.annotate("POI n'ayant pas la marque qualité tourisme", 
+    plt.annotate("POI n'ayant pas la marque 'Qualité Tourisme'", 
                 xy=v.get_label_by_id('10').get_position() - np.array([0, 0]), 
                 xytext=(-170,-140),
                 ha='center', 
@@ -150,7 +150,7 @@ def venndiagram_results(set_1, set_2, set_3):
                 arrowprops=dict(arrowstyle='->', connectionstyle='arc3,rad=0.5',color='gray')
                 )
 
-    plt.annotate('POI qualité tourisme sans équivalent Datagouv', 
+    plt.annotate('POI "Qualité Tourisme sans équivalent Data.economie.gouv.fr', 
                 xy=v.get_label_by_id('01').get_position() - np.array([0, 0]), 
                 xytext=(100,80),
                 ha='center', 
@@ -175,7 +175,7 @@ st.title("Comparaisons des POI")
 st.header("Démarche de comparaison")
 
 
-st.write("""Nous avons récupéré les informations d'environ 360 000 POI sur la plateforme DataTourisme et les avons comparées aux données Datagouv. Cela nous a permis d'identifier des POI marqués comme "Qualité Tourisme" sur Datagouv mais manquants sur les données "Qualité tourisme" de Datatourisme.
+st.write("""Nous avons récupéré les informations d'environ 360 000 POI sur la plateforme DATATourisme et les avons comparées aux données Data.economie.gouv.fr. Cela nous a permis d'identifier des POI marqués comme "Qualité Tourisme" sur Data.economie.gouv.fr mais manquants sur les données "Qualité tourisme" de DATAtourisme.
 
 Les POI ont été comparés étape par étape sur les critères suivants:
 - Numéro de téléphone ;
@@ -195,9 +195,9 @@ nb_match_total = int((df_match['matched'] == True).sum())
 col1, col2, col3= st.columns(3)
 col1.metric("Matchs total",f'{nb_match_total} POI')
 
-st.write(""" Nous avons également remarqué un grand nombre de POI "dédoublés" dans Datatourisme. 
-Un même établissement peut être divisé en un POI et sous-POI dans la base Datatourisme. Par exemple, un complexe hôtelier peut avoir un identifiant différent pour l'hôtel, le restaurant et le spa. Cependant, du côté de Datagouv, ce même complexe hôtelier correspondra à un seul POI. 
-Cela explique le fait que l'on retrouve plus de résultats de comparaison que de POI de la base Datagouv.
+st.write(""" Nous avons également remarqué un grand nombre de POI "dédoublés" dans DATAtourisme. 
+Un même établissement peut être divisé en un POI et sous-POI dans la base DATAtourisme. Par exemple, un complexe hôtelier peut avoir un identifiant différent pour l'hôtel, le restaurant et le spa. Cependant, du côté de Data.economie.gouv.fr, ce même complexe hôtelier correspondra à un seul POI. 
+Cela explique le fait que l'on retrouve plus de résultats de comparaison que de POI de la base Data.economie.gouv.fr.
 """)
 
 example_schema = Image.open('schema_poi.JPG')
@@ -257,7 +257,7 @@ st.write("""Bien que le travail de comparaison ait été réalisé sur six crit�
 
 #####VENN DIAGRAM ###############################W#################################################################################
 
-st.subheader("POI communs à Datatourisme et Datagouv")
+st.subheader("POI communs à DATAtourisme et Data.economie.gouv.fr")
 
 
 # poi ayant matché sans marque qualité
@@ -273,12 +273,12 @@ set_c = int((df_match['qualite_tourisme'] == True).sum())
 venndiagram_results(set_a, set_b, set_c)
 
 st.write("""
-- 2/3 des POI marque "Qualité Tourisme" de Datatourisme correspondent à des POI marque "Qualité Tourisme" chez Datagouv. 
-- Un grand nombre de POI Datatourisme n'ayant pas la marque "Qualité Tourisme" ont trouvé un match dans la base Datagouv. 
+- 2/3 des POI marque "Qualité Tourisme" de DATAtourisme correspondent à des POI marque "Qualité Tourisme" chez Data.economie.gouv.fr. 
+- Un grand nombre de POI DATAtourisme n'ayant pas la marque "Qualité Tourisme" ont trouvé un match dans la base Data.economie.gouv.fr. 
 
 Plusieurs explications possibles : 
-- Les POI ont perdu la marque et ont été mis à jour du côté de Datatourisme ;
-- Les éditeurs du POI n'ont pas mentionné la marque lors de la saisie dans la base Datatourisme.
+- Les POI ont perdu la marque et ont été mis à jour du côté de DATAtourisme ;
+- Les éditeurs du POI n'ont pas mentionné la marque lors de la publication de leurs données dans la base DATAtourisme.
 """)
 
 st.subheader("Exports des données")
@@ -295,13 +295,13 @@ col1, col2 = st.columns(2)
 
 with col1:
     st.write("""
-    La liste complète des POI communs à Datatourisme et Datagouv
+    La liste complète des POI communs à DATAtourisme et Data.economie.gouv.fr.
     """)
     st.download_button("Télécharger les données au format XSLX", data = data_xlsx_match, file_name='Datas_MQ_total.xlsx', mime='application/vnd.ms-excel')
 
 with col2:
     st.write("""
-    POI Datatourisme "Qualité Tourisme" sans équivalent Datagouv
+    POI DATAtourisme "Qualité Tourisme" sans équivalent Data.economie.gouv.fr.
     """)
     st.download_button("Télécharger les données au format XSLX", data = data_xlsx_QT, file_name='Datas_MQ_notmatched.xlsx', mime='application/vnd.ms-excel')
 
