@@ -5,6 +5,7 @@ from pywaffle import Waffle
 import matplotlib.pyplot as plt
 from wordcloud import WordCloud
 from datetime import date
+from PIL import Image
 import geopandas as gpd
 from matplotlib.colors import TwoSlopeNorm
 import numpy as np
