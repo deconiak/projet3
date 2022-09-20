@@ -177,13 +177,13 @@ with col1:
 with col2:
    st.write("Éditeurs n'ayant aucun match réussi sur Data.economie.gouv.fr")
    with st.expander("Vous pouvez cliquer ici afin d'accéder au dataset brut ⬇️ "):
-    st.dataframe(mix[mix['taux de comparaison'] == 0].sort_values(['Total_des_PoI'], ascending=False))
+    st.dataframe(mix[mix['taux de comparaison'] == 0].sort_values(['Supposément Qualité Tourisme'], ascending=False))
 
   
 #Bloc 2 - 
 mix_0 = mix[mix['taux de comparaison'] == 0 ]
-mix_0_test = mix_0.sort_values(['Total_des_PoI'], ascending=False).head(50)
-mix_orga = mix[mix['Total_des_PoI'] > 0].sort_values(['Total_des_PoI'], ascending=False).head(50)
+mix_0_test = mix_0.sort_values(['Supposément Qualité Tourisme'], ascending=False).head(50)
+mix_orga = mix[mix['Supposément Qualité Tourisme'] > 0].sort_values(['Supposément Qualité Tourisme'], ascending=False).head(50)
 mix_orga_10 = mix_orga.head(10)
 
 #Graph 2 
