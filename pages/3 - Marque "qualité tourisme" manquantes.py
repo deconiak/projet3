@@ -17,7 +17,7 @@ image_icon = Image.open('logo_w.jpg')
 
 
 #Page config
-st.set_page_config(layout = 'wide',page_title='Focus Label Qualité Tourisme - Projet WCS',page_icon=image_icon)
+st.set_page_config(layout = 'wide',page_title='Focus Marque "Qualité Tourisme" - Projet WCS',page_icon=image_icon)
 
 #Imports 
 df_global = pd.read_csv('df_matched_true.csv', sep=',')
