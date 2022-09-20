@@ -91,9 +91,9 @@ with st.expander("Vous pouvez cliquer ici afin d'accéder aux différents datase
   st.subheader("Equipe :bulb:")
 st.write("""Le projet a été réalisé par :
 - Amandine SAGE ARGILES [LinkedIn](https://www.linkedin.com/in/sageamandine/)
-- Sébastien TARRES
-- Camille SOGNO
-- Sébastien BERGER
+- Sébastien TARRES [LinkedIn](https://www.linkedin.com/in/s%C3%A9bastien-tarres/)
+- Camille SOGNO [LinkedIn](https://www.linkedin.com/in/camille-sogno-b7a41073/)
+- Sébastien BERGER [LinkedIn](https://www.linkedin.com/in/sebastienberger33/)
 
 """)
 
