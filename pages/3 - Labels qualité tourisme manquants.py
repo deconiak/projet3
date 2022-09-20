@@ -95,7 +95,7 @@ st.sidebar.image(logo)
 #Titre
 st.title("Focus sur les organismes dont les marques 'Qualité Tourisme' sont manquantes.")
 
-st.write("Afin d'introduire cette partie, voici deux cartes présentant à la fois par région & département le nombre de points d'intêret ne disposant pas de la marque 'Qualité Tourisme' bien qu'ayant été matché sur la base de données de DataGouv. Comme l'on peut le voir, certaines régions ont un taux de labels manquants extrêmement élevé, notamment la région Rhône-Alpes (et plus particulièrement Savoie & Haute-Savoie) avec plus de 2500 marques 'Qualité Tourisme' manquantes.")
+st.write("Afin d'introduire cette partie, voici deux cartes présentant à la fois par région & département le nombre de points d'intêret ne disposant pas de la marque 'Qualité Tourisme' bien qu'ayant été matché sur la base de données de Data.economie.gouv.fr. Comme l'on peut le voir, certaines régions ont un taux de labels manquants extrêmement élevé, notamment la région Rhône-Alpes (et plus particulièrement Savoie & Haute-Savoie) avec plus de 2500 marques 'Qualité Tourisme' manquantes.")
 
 ############################################################################################################################################
 ############################################################################################################################################
@@ -131,7 +131,7 @@ choropleth_map_normalize(region_total_notMQ, department_total_notMQ, "matched_no
 ############################################################################################################################################
 
 
-st.write("L'exemple ci-dessous mets en avant le taux en pourcentage d'efficacité en terme de matchs effectués depuis la base de données globale de DataTourisme avec la base de DataGouv ET étant dans la base réduite de DataTourisme. Le premier graphique affiche en fonction du pourcentage de réussite et le second en terme de quantité de POI brute.")
+st.write("L'exemple ci-dessous mets en avant le taux en pourcentage d'efficacité en terme de matchs effectués depuis la base de données globale de DATATourisme avec la base de Data.economie.gouv.fr ET étant dans la base réduite de DATATourisme. Le premier graphique affiche en fonction du pourcentage de réussite et le second en terme de quantité de POI brute.")
 st.write("Cela permets surtout de mettre en avant le fait que certains organismes ont un taux de succés de matchs élevé en pourcentage mais une faible quantité de POI globale.")
 
 #Bloc 1 - 
@@ -154,28 +154,28 @@ top_28_qt = mix.sort_values('PoI_label_Qualité_Tourisme', ascending =False).hea
 
 #Graph 1 
 fig = px.bar(top_28, x="publisher_legal_name", y="taux de comparaison", 
-             title="Taux de POI identifiés par éditeurs en label Qualité Tourisme ",
+             title="Taux de POI identifiés par éditeurs en marque Qualité Tourisme ",
              labels={'publisher_legal_name':'Éditeur du POI', 'taux de comparaison':'taux de comparaison en %' })
 fig.update(layout_yaxis_range = [0,100])
 st.plotly_chart(fig, use_container_width=True)
 
 #Graph 2 
 fig_3 = px.bar(top_28_qt, x="publisher_legal_name", y="PoI_label_Qualité_Tourisme", 
-             title="Organismes ayant le plus haut nombre de POI correctement enregistrés dans la base de Data Tourisme",
-             labels={'publisher_legal_name':'Éditeur du POI', 'PoI_label_Qualité_Tourisme':"Nombre d'organismes possédant le label" })
+             title="Organismes ayant le plus haut nombre de POI correctement enregistrés dans la base de DATATourisme",
+             labels={'publisher_legal_name':'Éditeur du POI', 'PoI_label_Qualité_Tourisme':"Nombre d'organismes possédant la marque" })
 st.plotly_chart(fig_3, use_container_width=True)
 
-st.write("Il est possible de visualiser directement ci-dessous les éditeurs ayant au moins 1 POI matché correctement sur DataGouv et étant présent dans la base réduite de DataTourisme.")
+st.write("Il est possible de visualiser directement ci-dessous les éditeurs ayant au moins 1 POI matché correctement sur Data.economie.gouv.fr et étant présent dans la base réduite de DATATourisme.")
 
 #Follow-up
 col1, col2 = st.columns(2)
 
 with col1:
-   st.write("Éditeurs ayant au moins un match réussi sur DataGouv")
+   st.write("Éditeurs ayant au moins un match réussi sur Data.economie.gouv.fr")
    with st.expander("Vous pouvez cliquer ici afin d'accéder au dataset brut ⬇️ "):
     st.dataframe(mix[mix['taux de comparaison'] > 0].sort_values(['taux de comparaison'], ascending=False))
 with col2:
-   st.write("Éditeurs n'ayant aucun match réussi sur DataGouv")
+   st.write("Éditeurs n'ayant aucun match réussi sur Data.economie.gouv.fr")
    with st.expander("Vous pouvez cliquer ici afin d'accéder au dataset brut ⬇️ "):
     st.dataframe(mix[mix['taux de comparaison'] == 0].sort_values(['Total_des_PoI'], ascending=False))
 
