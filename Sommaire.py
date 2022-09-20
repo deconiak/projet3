@@ -52,7 +52,7 @@ Le jeu de données ne montre que les offices de tourisme dont la catégorie est 
 
 Il contient les fichiers qui seront à mettre dans un repository Github afin que l'application puisse être hébergée en ligne.
 
-Le fichier "blablba.py" est le code de notre application, il fait appel aux fichiers présents dans le dossier "pages" qui contient le code des différentes pages de l'application.
+Le fichier "sommaire.py" est le code de notre application, il fait appel aux fichiers présents dans le dossier "pages" qui contient le code des différentes pages de l'application.
 
 "Requirements.txt" est un fichier texte qui indique quels modules Python l'application doit utiliser, rien n'est à modifier dans son contenu.
 
